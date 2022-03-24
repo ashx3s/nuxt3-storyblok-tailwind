@@ -1,7 +1,9 @@
 import { defineNuxtConfig } from "nuxt3";
-
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
+  alias: {
+    "/@": "./",
+  },
   head: {
     title: "A Demo Website",
     meta: [
@@ -18,29 +20,26 @@ export default defineNuxtConfig({
   },
   //
   publicRuntimeConfig: {
-    baseUrl: "https://storyblok.com",
+    apiToken: process.env.STORYBLOK_API_KEY,
   },
-  privateRuntimeConfig: {
-    apiSecret: process.env.STORYBLOK_API_KEY,
-  },
+  privateRuntimeConfig: {},
   //
-  css: ["~/assets/css/tailwind.css"],
+  css: ["~/assets/css/fonts.css"],
   //
   components: [],
-  modules: [],
-  //
-  plugins: [],
-  //
-  buildModules: [
+  modules: [
     [
       "@storyblok/nuxt",
       {
-        accessToken: "apiSecret",
+        accessToken: process.env.STORYBLOK_API_KEY,
         bridge: true,
         apiOptions: {}, // storyblok-js-client options
         useApiClient: true,
       },
     ],
-    "@nuxtjs/tailwindcss",
   ],
+  //
+  plugins: [],
+  //
+  buildModules: ["@nuxtjs/tailwindcss"],
 });
